@@ -9,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast'
 
 class App extends Component {
   state = {
-    contacts: [],
+    contacts: null,
     filter: '',
   }
 
@@ -26,10 +26,10 @@ class App extends Component {
     if (prevState.contacts !== this.state.contacts)
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
     
-    if (prevState.contacts.length < this.state.contacts.length)
+    if (prevState.contacts && prevState.contacts.length < this.state.contacts.length)
       toast.success('Create contact successfully!')
         
-    if (prevState.contacts.length > this.state.contacts.length)
+    if (prevState.contacts && prevState.contacts.length > this.state.contacts.length)
       toast.error('Delete contact successfully!')
   }
   
@@ -43,7 +43,7 @@ class App extends Component {
   getListOfContacts = () => {
     const { contacts, filter } = this.state;
     const filterValue = filter.toLowerCase()
-    return contacts.filter((contact) =>
+    return contacts && contacts.filter((contact) =>
       contact.name.toLowerCase().includes(filterValue)
     )
   }
@@ -57,7 +57,7 @@ class App extends Component {
 
   deleteContact = (contactForDelete) => {
     this.setState(prevState =>
-      ({ contacts: prevState.contacts.filter(contact => contact.id !== contactForDelete) })
+      ({ contacts:prevState.contacts.filter(contact => contact.id !== contactForDelete) })
     )
   }
 
