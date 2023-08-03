@@ -63,6 +63,8 @@ class App extends Component {
 
   render() {
     const { filter, contacts } = this.state
+    const listOfContacts = this.getListOfContacts();
+    const isContactListEmpty = listOfContacts && listOfContacts.length === 0;
    
     return (
       <>
@@ -72,7 +74,7 @@ class App extends Component {
         
         <Section title='Contacts'>
           <Filter title='Find contacts by name' handleChangeFilter={this.handleChangeFilter} value={filter} />
-          <ContactList contacts={this.getListOfContacts()} deleteContact={this.deleteContact} />
+          {!isContactListEmpty && <ContactList contacts={this.getListOfContacts()} deleteContact={this.deleteContact} />}
         </Section>
         <Toaster />
       </>
