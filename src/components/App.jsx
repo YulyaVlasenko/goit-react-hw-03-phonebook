@@ -42,6 +42,7 @@ class App extends Component {
 
   getListOfContacts = () => {
     const { contacts, filter } = this.state;
+    if (!contacts) return [];
     const filterValue = filter.toLowerCase()
     return contacts && contacts.filter((contact) =>
       contact.name.toLowerCase().includes(filterValue)

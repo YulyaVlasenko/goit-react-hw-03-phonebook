@@ -18,13 +18,13 @@ class ContactForm extends Component {
     }
 
     handleSubmit = (e) => {
+        e.preventDefault()
         const { name, number } = this.state
         const { createContact, contacts } = this.props
         const isExisting = contacts.find(contact => contact.name === name) 
-        e.preventDefault()
         if (isExisting) {
             toast.error(`${name} is already in contacts.`)
-            // alert()
+           
             return
         }
         const contact = {
