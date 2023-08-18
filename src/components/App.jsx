@@ -9,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast'
 
 class App extends Component {
   state = {
-    contacts: null,
+    contacts: [],
     filter: '',
   }
 
@@ -19,11 +19,7 @@ class App extends Component {
     this.setState({
       contacts: JSON.parse(savedList)
     })
-  } else {
-    this.setState({
-      contacts: []  
-    })
-  }
+  } 
 }
 
 
@@ -31,18 +27,19 @@ componentDidUpdate = (prevProps, prevState) => {
     if (prevState.contacts !== this.state.contacts)
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
     
-    if (prevState.contacts && prevState.contacts.length < this.state.contacts.length)
-      toast.success('Create contact successfully!')
+    // if (prevState.contacts && prevState.contacts.length < this.state.contacts.length)
+    //   toast.success('Create contact successfully!')
         
-    if (prevState.contacts && prevState.contacts.length > this.state.contacts.length)
-      toast.error('Delete contact successfully!')
+    // if (prevState.contacts && prevState.contacts.length > this.state.contacts.length)
+    //   toast.error('Delete contact successfully!')
   }
   
 
   createContact = (contact) => {
     this.setState((prevState) => ({
       contacts: [...prevState.contacts, contact]
-    }));
+    }))
+    toast.success('Create contact successfully!')
   }
 
   getListOfContacts = () => {
@@ -65,6 +62,7 @@ componentDidUpdate = (prevProps, prevState) => {
     this.setState((prevState) =>
       ({ contacts: prevState.contacts.filter(contact => contact.id !== contactForDelete) })
     )
+     toast.error('Delete contact successfully!')
   }
 
   render() {
