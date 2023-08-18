@@ -14,15 +14,20 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    const savedList = localStorage.getItem('contacts')
-    if (savedList)
-      this.setState({
-        contacts: JSON.parse(savedList)
-      })
+  const savedList = localStorage.getItem('contacts')
+  if (savedList) {
+    this.setState({
+      contacts: JSON.parse(savedList)
+    })
+  } else {
+    this.setState({
+      contacts: []  
+    })
   }
+}
 
 
-  componentDidUpdate = (prevProps, prevState) => {
+componentDidUpdate = (prevProps, prevState) => {
     if (prevState.contacts !== this.state.contacts)
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
     
@@ -35,7 +40,7 @@ class App extends Component {
   
 
   createContact = (contact) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       contacts: [...prevState.contacts, contact]
     }));
   }
@@ -57,8 +62,8 @@ class App extends Component {
 
 
   deleteContact = (contactForDelete) => {
-    this.setState(prevState =>
-      ({ contacts:prevState.contacts.filter(contact => contact.id !== contactForDelete) })
+    this.setState((prevState) =>
+      ({ contacts: prevState.contacts.filter(contact => contact.id !== contactForDelete) })
     )
   }
 
